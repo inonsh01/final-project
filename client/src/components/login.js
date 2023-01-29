@@ -1,16 +1,17 @@
 import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from '../App';
-import '../styles/login.css'
+import '../styles/login.css';
+import Cookies from 'js-cookie';
 
 export default function Login() {
     const { username, setUsername } = useContext(AppContext);
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    
-    if (localStorage.getItem('currentUser', username)) {
-        localStorage.removeItem('currentUser', username)
+
+    if (Cookies.get('user')) {
+        Cookies.set('user', "", { expires: -1 });
     }
 
     function sendReq(e) {
@@ -24,17 +25,26 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
         })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                if (data === "false") {
+                if (!data) {
                     alert("your username or password are incorrect");
                     window.location.reload();
+                    return;
                 }
-                else {
-                    setUsername(name);
-                    localStorage.setItem('currentUser', name);
-                    navigate(`/${name}`);
+
+                setUsername(name);
+                const user = {
+                    username: name,
+                    userId: data.userId,
+                    type: data.type
                 }
+                Cookies.set('user', JSON.stringify(user), { expires: 1, path: 'http://localhost:3000/home' });
+                if(data.type === 'admin'){
+                    navigate('/home/admin')
+                    return;
+                }
+                navigate(`/home`);
             })
     }
     return (
