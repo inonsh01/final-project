@@ -1,0 +1,12 @@
+{
+    "tableName": "order_info",
+    "columns": {
+        "order_id": "INT PRIMARY KEY",
+        "price": "INT",
+        "amount": "INT",
+        "food_name": "VARCHAR(10)"
+    },
+    "foreignKeys": {
+        "": "FOREIGN KEY (order_id) REFERENCES user_order(order_id)"
+    }
+}

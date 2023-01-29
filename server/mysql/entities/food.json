@@ -1,0 +1,8 @@
+{
+    "tableName": "food",
+    "columns": {
+        "name": "VARCHAR(10) NOT NULL",
+        "price": "INT",
+        "type": "VARCHAR(10) NOT NULL"
+    }
+}

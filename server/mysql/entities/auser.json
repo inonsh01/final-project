@@ -1,0 +1,10 @@
+{
+    "tableName": "user",
+    "columns": {
+        "user_id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "user_name": "VARCHAR(15) NOT NULL",
+        "first_name": "VARCHAR(15) NOT NULL",
+        "last_name": "VARCHAR(15) NOT NULL",
+        "type": "VARCHAR(10) NOT NULL"
+    }
+}
