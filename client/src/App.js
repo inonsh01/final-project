@@ -1,6 +1,9 @@
 import Home from './components/Home'
 import Register from "./components/register";
 import Login from './components/login';
+import Navbar from './components/Navbar';
+import About from './components/About';
+import Profile from './components/Profile';
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -15,11 +18,15 @@ function App() {
           <Route path="/" element={<Navigate replace to="/login" />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/Register" element={<Register />}></Route>
-          <Route path=':name/home' element={<Home />}></Route>
+          <Route path='home' element={<Navbar />}>
+          <Route path="about" element={<About />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
+            <Route index element={<Home />} />
+          </Route>
           <Route path="*" element={<h1>404 Not found</h1>}></Route>
         </Routes>
       </AppContext.Provider>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

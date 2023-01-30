@@ -1,31 +1,31 @@
-import { Route, Link, useNavigate } from "react-router-dom";
-import { AppContext } from '../App';
-import { useContext } from "react";
+import Cookies from 'js-cookie'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-
-
-function Home() {
-    const { setUsername } = useContext(AppContext);
+export default function Home() {
     const navigate = useNavigate();
-    let username = localStorage.getItem("currentUser");
+    useEffect(() => {
+        if (!Cookies.get('user')) {
+            navigate("/");
+            return;
+        }
+    }, []);
+    if (!Cookies.get('user')) {
+        return;
+    }
 
-    function Logout() {
-        localStorage.clear();
-        setUsername("");
-        navigate('/');
-        window.history.pushState(null, null, window.location.href);
-        window.onpopstate = window.history.go(1);
-    };
+    let userInfo = JSON.parse(Cookies.get('user'));
+    console.log(userInfo);
+
+    //const user = JSON.parse(Cookies.get('user'));
+    //console.log('user: ', user);
 
     return (
-        <>
-            <h1>how are you doing {username} it's from the</h1>
-            <Link to={`/${username}/home`} > home </Link>
-            <button onClick={Logout}> לך הביתה שלך</button>
-        </>
+        <div>
+            <h2> welcome back {userInfo.username}!</h2>
+        </div>
     )
 }
 
 
-export default Home;
 

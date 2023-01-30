@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-
+import Cookies from 'js-cookie';
 
 const Register = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+
+    if (Cookies.get('user')) {
+        Cookies.remove('user');
+    }
 
     const user = {
         name: username,
