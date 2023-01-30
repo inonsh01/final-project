@@ -56,7 +56,7 @@ export default function Order() {
     }
 
     return (
-        <div>
+        <div className='order'>
             <form onSubmit={(e) => sendOrder(e)}>
                 <div>
                     <label>How many people in the seating</label>

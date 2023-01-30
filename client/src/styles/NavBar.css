@@ -1,0 +1,50 @@
+.links {
+    text-decoration: none;
+    color: black;
+    padding: 1rem 2rem;
+    display: inline-block;
+}
+
+.links:hover {
+    background-color: rgb(186, 195, 192);
+    transform: scale(1.5);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#94adcc;
+    height: 5rem;
+    margin-bottom: 3rem;
+}
+
+.logout {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    display: inline-block;
+}
+
+.logout:hover {
+    background-color: rgb(186, 195, 192);
+    transform: scale(1.5);
+}
+
+
+
+
+@media (max-width: 40rem) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .links {
+        padding: 1rem;
+    }
+}

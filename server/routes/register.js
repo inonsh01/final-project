@@ -22,7 +22,7 @@ function register(req, res, admin) {
     let type = admin ? 'admin' : 'user';
     var sql = `INSERT INTO user (user_name, type) VALUES ('${req.body.name}', '${type}')`;
     con.query(sql, function (err, result) {
-        if (err) res.send(err);
+        if (err) {res.send(err); return;}
         sql = `INSERT INTO password (user_id, password) VALUES ((SELECT user_id FROM user WHERE user_name = '${req.body.name}'), '${req.body.password}')`
         con.query(sql, function (err, result) {
             if (err) res.send(err);

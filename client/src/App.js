@@ -1,9 +1,10 @@
+import Home from './components/Home'
 import Register from "./components/register";
 import Login from './components/login';
-import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Order from './components/Order';
-
+import About from './components/About';
+import Profile from './components/Profile';
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -20,6 +21,8 @@ function App() {
           <Route path="/Register" element={<Register />}></Route>
           <Route path='home' element={<Navbar />}>
             <Route index element={<Home />} />
+            <Route path="about" element={<About />}></Route>
+            <Route path="profile" element={<Profile />}></Route>
             <Route path="order" element={<Order />}></Route>
           </Route>
           <Route path="*" element={<h1>404 Not found</h1>}></Route>

@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('../mysql/mysql');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
   mysql();
   res.render('index', { title: 'Express' });
 });

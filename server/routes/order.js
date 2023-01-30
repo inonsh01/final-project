@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 router.post('/:id', function (req, res, next) {
     const id = req.params.id;
     const obj = req.body;
-    calc(id, obj);
+    calc(obj);
     res.send(JSON.stringify("hay"));
 });
 module.exports = router;

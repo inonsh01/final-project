@@ -16,7 +16,7 @@ export default function Login() {
 
     function sendReq(e) {
         e.preventDefault();
-        
+
         const user = {
             name: name,
             password: password
