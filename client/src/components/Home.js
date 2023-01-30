@@ -11,11 +11,11 @@ export default function Home() {
         }
     }, []);
     console.log("sssssssssssss");
-    //const user = JSON.parse(Cookies.get('user'));
     //console.log('user: ', user);
 
     return (
         <div>
+            <button onClick={()=>navigate(`order`)}>click</button>
             <h2>doda</h2>
         </div>
     )
