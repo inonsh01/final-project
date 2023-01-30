@@ -10,13 +10,17 @@ export default function Home() {
             return;
         }
     }, []);
-    
-    // const user = JSON.parse(Cookies.get('user'));
-    // console.log('user: ', user);
+    console.log("sssssssssssss");
+    //const user = JSON.parse(Cookies.get('user'));
+    //console.log('user: ', user);
 
     return (
         <div>
-
+            <h2>doda</h2>
         </div>
     )
 }
+
+
+
+

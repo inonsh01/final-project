@@ -11,11 +11,12 @@ export default function Login() {
     const navigate = useNavigate();
 
     if (Cookies.get('user')) {
-        Cookies.set('user', "", { expires: -1 });
+        Cookies.remove('user');
     }
 
     function sendReq(e) {
         e.preventDefault();
+        
         const user = {
             name: name,
             password: password
@@ -32,15 +33,14 @@ export default function Login() {
                     window.location.reload();
                     return;
                 }
-
                 setUsername(name);
                 const user = {
                     username: name,
                     userId: data.userId,
                     type: data.type
                 }
-                Cookies.set('user', JSON.stringify(user), { expires: 1, path: 'http://localhost:3000/home' });
-                if(data.type === 'admin'){
+                Cookies.set('user', JSON.stringify(user), { path: "/", expires: 1 });
+                if (data.type === 'admin') {
                     navigate('/home/admin')
                     return;
                 }

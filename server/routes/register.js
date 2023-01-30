@@ -21,7 +21,6 @@ function ifExist(req, res) {
 function register(req, res, admin) {
     let type = admin ? 'admin' : 'user';
     var sql = `INSERT INTO user (user_name, type) VALUES ('${req.body.name}', '${type}')`;
-    console.log(sql);
     con.query(sql, function (err, result) {
         if (err) res.send(err);
         sql = `INSERT INTO password (user_id, password) VALUES ((SELECT user_id FROM user WHERE user_name = '${req.body.name}'), '${req.body.password}')`
@@ -30,8 +29,6 @@ function register(req, res, admin) {
             else res.send(true);
         });
     });
-
-    console.log(req.body);
 }
 router.post('/', function (req, res, next) {
     ifExist(req, res);
