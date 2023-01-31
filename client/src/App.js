@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Order from './components/Order';
 import About from './components/About';
 import Profile from './components/Profile';
+import MyOrders from './components/MyOrders';
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="about" element={<About />}></Route>
             <Route path="profile" element={<Profile />}></Route>
             <Route path="order" element={<Order />}></Route>
+            <Route path="myOrders" element={<MyOrders />}></Route>
           </Route>
           <Route path="*" element={<h1>404 Not found</h1>}></Route>
         </Routes>
