@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var con = require('../mysql/connection');
 
+router.get('/img', function (req, res, next) {
+    res.sendFile(req.query.imgUrl)
+});
+
 router.get('/', function (req, res, next) {
     var sql = `SELECT price, order_id FROM user_order WHERE user_id = ${req.query.id}`;
     con.query(sql, function (err,result){
