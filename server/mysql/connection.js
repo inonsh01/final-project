@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-const password = "inonsh01";
+const password = "z10mz10m";
 
 var con = mysql.createConnection({
     host: "localhost",

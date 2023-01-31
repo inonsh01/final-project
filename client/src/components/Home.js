@@ -22,9 +22,8 @@ export default function Home() {
 
     return (
         <div>
-            <button onClick={()=>navigate(`order`)}>click</button>
-            <h2>doda</h2>
             <h2> welcome back {userInfo.username}!</h2>
+            <button onClick={()=>navigate(`order`)}>click</button>
         </div>
     )
 }
