@@ -126,7 +126,7 @@ export default function Order() {
                     </div>}
                 <button type="submit">I want to seat!</button>
             </form>
-            {fullOrder.length > 0 && <OrderTable orderTableRef={orderTableRef} fullOrder={fullOrder} totalPrice={totalPrice} />}
+            {fullOrder.length > 0 && <OrderTable people = {people} orderTableRef={orderTableRef} fullOrder={fullOrder} totalPrice={totalPrice} />}
         </div>
     )
 }

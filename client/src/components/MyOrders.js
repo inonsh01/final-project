@@ -13,10 +13,11 @@ export default function MyOrders() {
                 setMyOrders(data);
             })
     }, [])
+
     return (
         <div>
             {myOrders && myOrders.map((item) =>
-                <OrderInfo item = {item}/>
+                <OrderInfo userId={userId} item={item} />
             )}
         </div>
     )

@@ -14,7 +14,7 @@ export default function OrderTable(props) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fullOrder: order, userId: userId, totalPrice: price })
+            body: JSON.stringify({ fullOrder: order, userId: userId, totalPrice: price, totalPeople: props.people})
         })
             .then((response) => response.json())
             .then(data => {

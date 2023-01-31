@@ -3,9 +3,12 @@ var router = express.Router();
 var con = require('../mysql/connection');
 
 router.get('/', function (req, res, next) {
-    var sql = `SELECT price, order_id FROM user_order WHERE user_id = ${req.query.id}`;
-    con.query(sql, function (err,result){
-        console.log(result);
+    if (req.query.orderId) {
+        sendOrderInfo(req, res);
+        return;
+    }
+    var sql = `SELECT price, order_id, people FROM user_order WHERE user_id = ${req.query.id}`;
+    con.query(sql, function (err, result) {
         res.send(JSON.stringify(result));
     });
 });
@@ -13,8 +16,8 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     let details = req.body;
     var sql = `
-    INSERT INTO user_order (user_id, price)
-      VALUES (${details.userId}, ${details.totalPrice});`
+    INSERT INTO user_order (user_id, price, people)
+      VALUES (${details.userId}, ${details.totalPrice}, ${details.totalPeople});`
     con.query(sql, function (err, result) {
         if (err) throw err;
         var sql = `INSERT INTO order_info (order_id, food_name, amount, price) VALUES ?`
@@ -30,3 +33,10 @@ router.post('/', function (req, res, next) {
 });
 module.exports = router;
 
+function sendOrderInfo(req, res) {
+    const orderId = req.query.orderId;
+    var sql = `SELECT price, amount, food_name FROM order_info WHERE order_id = ${orderId}`;
+    con.query(sql, function (err, result) {
+        res.send(JSON.stringify(result));
+    });
+}
