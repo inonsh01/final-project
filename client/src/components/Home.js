@@ -23,7 +23,7 @@ export default function Home() {
     return (
         <div>
             <h2> welcome back {userInfo.username}!</h2>
-            <button onClick={()=>navigate(`order`)}>click</button>
+            <button onClick={()=>navigate(`order`)}>Make a new order </button>
         </div>
     )
 }
