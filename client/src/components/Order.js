@@ -120,7 +120,7 @@ export default function Order() {
                                     <>
                                         <input onClick={() => changeArr(obj.name, obj.type)} type="checkbox" name={obj.name} />
                                         <label>{obj.name}</label>
-                                        <img src = {`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
+                                        <img alt = "img-element" src = {`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
                                     </>
                                 )}
                             </>}
