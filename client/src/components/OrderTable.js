@@ -24,7 +24,7 @@ export default function OrderTable(props) {
 
 
     return (
-        <div>
+        <div className='table'>
             <table>
                 <thead>
                     <tr>

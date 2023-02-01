@@ -1,21 +1,22 @@
 .links {
     text-decoration: none;
-    color: black;
+    color: rgb(255, 255, 255);
     padding: 1rem 2rem;
     display: inline-block;
     border: 1px double #000000;
 }
 
 .links:hover {
-    background-color: rgb(186, 195, 192);
+    background-color: rgb(255, 0, 0);
     transform: scale(1.5);
+    transition: 0.4s;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:#676767;
+    background-color:#000000;
     height: 5rem;
     margin-bottom: 3rem;
 }
@@ -24,17 +25,18 @@
     font-size: 16px;
     background-color: transparent;
     border: none;
-    color: black;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     text-decoration: none;
     padding: 1rem 2rem;
     display: inline-block;
-    border:  2px solid black;
+    border:  2px solid rgb(255, 0, 0);
 }
 
 .logout:hover {
-    background-color: rgb(186, 195, 192);
+    background-color: rgb(255, 0, 0);
     transform: scale(1.5);
+    transition: 0.4s;
 }
 
 

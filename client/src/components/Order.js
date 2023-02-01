@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Cookies from 'js-cookie';
 import OrderTable from './OrderTable';
+import '../styles/orders.css'
 export default function Order() {
     const [food, setFood] = useState();
     const [alcohol, setAlcohol] = useState();
@@ -93,42 +94,61 @@ export default function Order() {
         setFoodArr(arr);
     }
     return (
+        <>
         <div className='order'>
             <form onSubmit={(e) => sendOrder(e)}>
                 <div>
-                    <label>How many people in the seating</label>
+                    <h1>How many people in the seating?</h1>
+                 
                     <input onChange={(e) => setPeople(e.target.value)} type="number" min={5} max={20} required></input>
+                <br />
                 </div>
                 {food &&
-                    <div>
-                        <h3>choose types of meat</h3>
+                    <div className="grid-container">
+                        
+                        <h3 className='chooseMeat'>choose types of meat</h3>
                         {food.map(obj =>
                             obj.type === 'food' &&
                             <>
+                            <div className= "grid-item " > 
+                            <img alt="img-element" src={`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
+                                <h3>{obj.name}</h3>
                                 <input onClick={() => changeArr(obj.name, obj.type)} type="checkbox" name={obj.name} />
-                                <label>{obj.name}</label>
+                                </div>
                             </>
                         )}
-                        <h3>Do u want tubi dead today?</h3>
-                        <input onClick={() => setAlcohol(!alcohol)} type="checkbox" name="alcohol"></input>
-                        <label>Alcohol</label>
-                        <br />
+                          
+                            
+                        </div>}
+                        <h2 className='tubi'>Do u want Tubi dead today?</h2>
+                            
+                        
+                        <h3>Alcohol</h3>
+                        <input  onClick={() => setAlcohol(!alcohol)} type="checkbox" name="alcohol"></input>
+                    
+                        <div className="alcohol-container">
+                    
+                        
                         {alcohol &&
                             <>
                                 {food.map(obj =>
                                     obj.type === 'drink' &&
                                     <>
+                                    <div className='alcohol-item'>
+                                        <img alt="img-element" src={`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
+                                        <h3>{obj.name}</h3>
                                         <input onClick={() => changeArr(obj.name, obj.type)} type="checkbox" name={obj.name} />
-                                        <label>{obj.name}</label>
-                                        <img alt = "img-element" src = {`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
+                                        </div>
                                     </>
                                 )}
                             </>}
-                    </div>}
+                                </div>
+                  
                 <button type="submit">I want to seat!</button>
             </form>
-            {fullOrder.length > 0 && <OrderTable people = {people} orderTableRef={orderTableRef} fullOrder={fullOrder} totalPrice={totalPrice} />}
+            {fullOrder.length > 0 && <OrderTable people={people} orderTableRef={orderTableRef} fullOrder={fullOrder} totalPrice={totalPrice} />}
         </div>
+        </>
     )
 }
 
