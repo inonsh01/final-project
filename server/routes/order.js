@@ -35,6 +35,14 @@ router.post('/', function (req, res, next) {
         });
     })
 });
+
+router.delete('/', function (req, res) {
+    var sql = `DELETE FROM user_order WHERE order_id =${req.query.id}`;
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        res.send();
+    });
+});
 module.exports = router;
 
 function sendOrderInfo(req, res) {

@@ -11,6 +11,7 @@ function ifExist(req, res) {
     var sql = `SELECT user.type, password.password, user.user_id AS user_user_id, password.user_id AS password_user_id FROM user JOIN password ON password.password = '${user.password}' AND user.user_name = '${user.name}'`
     con.query(sql, function (err, result) {
         if (!result[0]) {
+            res.status(401);
             res.send(false);
             return;
         }

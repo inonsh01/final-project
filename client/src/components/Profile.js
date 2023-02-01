@@ -13,16 +13,17 @@ function Profile() {
     let userInfoJ = JSON.parse(Cookies.get('user'));
 
     useEffect(() => {
-        async function getUserProfile() {
-            let result = await fetch(`http://localhost:4000/profile/${userInfoJ.userId}`)
-            result = await result.json();
-            setUserInfo(result);
-            setNameUpdate(result[0].full_name);
-            setPhoneUpdate(result[0].phone_number);
-            setEmailUpdate(result[0].email);
-        }
         getUserProfile();
     }, []);
+
+    async function getUserProfile() {
+        let result = await fetch(`http://localhost:4000/profile/${userInfoJ.userId}`)
+        result = await result.json();
+        setUserInfo(result);
+        setNameUpdate(result[0].full_name);
+        setPhoneUpdate(result[0].phone_number);
+        setEmailUpdate(result[0].email);
+    }
 
     async function updateInfoFunc() {
         let user = userInfo[0];
@@ -31,14 +32,17 @@ function Profile() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: nameUpdate,
-                phone_number: user.phone_number,
-                email: user.email
+                phone_number: phoneUpdate,
+                email: emailUpdate
             })
 
         });
         response = await response.json();
-        console.log(response);
-        setNameUpdate(response)
+        if (response) {
+            alert(response);
+            getUserProfile();
+            return;
+        }
         setEdit(false);
     }
     return (

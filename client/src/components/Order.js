@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Cookies from 'js-cookie';
 import OrderTable from './OrderTable';
 export default function Order() {
@@ -7,9 +7,8 @@ export default function Order() {
     const [foodArr, setFoodArr] = useState([]);
     const [people, setPeople] = useState();
     const [fullOrder, setFullOrder] = useState([]);
-    const user = JSON.parse(Cookies.get('user'));
+    const userId = JSON.parse(Cookies.get('user')).userId;
     const [totalPrice, setTotalPrice] = useState();
-    const orderTableRef = useRef(null);
 
     useEffect(() => {
         fetch("http://localhost:4000/food")
@@ -19,26 +18,24 @@ export default function Order() {
             })
     }, []);
 
-    function sendOrder(e) {
+    async function sendOrder(e) {
         e.preventDefault();
         const order = {
             amount: people,
             food: foodArr
         }
-        fetch(`http://localhost:4000/food/prices`, {
+        const response = await fetch(`http://localhost:4000/food/prices`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(order)
         })
-            .then((response) => response.json())
-            .then(data => {
-                try {
-                    calc(order, data);
-                }
-                catch (err) {
-                    return;
-                }
-            });
+        const data = await response.json();
+        try {
+            calc(order, data);
+        }
+        catch (err) {
+            return;
+        }
     }
 
     function calc(obj, pricesArr) {
@@ -68,7 +65,21 @@ export default function Order() {
         }
         setTotalPrice(price);
         setFullOrder(fullArr);
-        orderTableRef.current(fullArr, price);
+        sendOrderToServer(fullArr, price);
+    }
+
+    function sendOrderToServer(order, price) {
+        fetch(`http://localhost:4000/order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fullOrder: order, userId: userId, totalPrice: price, totalPeople: people })
+        })
+            .then((response) => response.json())
+            .then(data => {
+                console.log('data: ', data);
+            });
     }
 
     function changeArr(name, type) {
@@ -120,14 +131,14 @@ export default function Order() {
                                     <>
                                         <input onClick={() => changeArr(obj.name, obj.type)} type="checkbox" name={obj.name} />
                                         <label>{obj.name}</label>
-                                        <img alt = "img-element" src = {`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
+                                        <img alt="img-element" src={`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
                                     </>
                                 )}
                             </>}
                     </div>}
                 <button type="submit">I want to seat!</button>
             </form>
-            {fullOrder.length > 0 && <OrderTable people = {people} orderTableRef={orderTableRef} fullOrder={fullOrder} totalPrice={totalPrice} />}
+            {fullOrder.length > 0 && <OrderTable fullOrder={fullOrder} totalPrice={totalPrice} />}
         </div>
     )
 }

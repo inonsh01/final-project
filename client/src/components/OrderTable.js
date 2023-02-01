@@ -1,27 +1,6 @@
-import React, { useEffect } from 'react'
-import Cookies from 'js-cookie'
+import React from 'react'
 export default function OrderTable(props) {
     let fullOrder = props.fullOrder;
-    let userId = JSON.parse(Cookies.get('user')).userId;
-
-    useEffect(() => {
-        props.orderTableRef.current = sendOrderToServer;
-    }, [])
-
-    function sendOrderToServer(order, price) {
-        fetch(`http://localhost:4000/order`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ fullOrder: order, userId: userId, totalPrice: price, totalPeople: props.people})
-        })
-            .then((response) => response.json())
-            .then(data => {
-                console.log('data: ', data);
-            });
-    }
-
 
     return (
         <div>

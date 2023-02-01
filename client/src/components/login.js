@@ -6,8 +6,8 @@ import Cookies from 'js-cookie';
 
 export default function Login() {
     const { username, setUsername } = useContext(AppContext);
-    const [name, setName] = useState("savta");
-    const [password, setPassword] = useState("marta");
+    const [name, setName] = useState("thegush");
+    const [password, setPassword] = useState("doda");
     const navigate = useNavigate();
 
     if (Cookies.get('user')) {
