@@ -3,12 +3,12 @@ var router = express.Router();
 var con = require('../mysql/connection');
 
 router.get('/', function (req, res, next) {
-    var sql = 'SELECT name, type, img FROM food';
+    var sql = 'SELECT name, type, img, food_id FROM food';
     con.query(sql, function (err, result) {
         if (err) { res.send(err.sqlMessage); return; };
         let names = [];
         for (let name of result) {
-            names.push({ name: name.name, type: name.type, img: name.img });
+            names.push({ name: name.name, type: name.type, img: name.img, foodId: name.food_id });
         }
         res.send(JSON.stringify(names));
     });
@@ -34,12 +34,12 @@ function getPricesOfOrderAndSendResponse(req, res) {
         res.send(JSON.stringify(""));
         return;
     }
-    var sql = 'SELECT price, name FROM food WHERE name in ?'
+    var sql = 'SELECT price, name, food_id FROM food WHERE name in ?'
     con.query(sql, [[names]], function (err, result) {
         if (err) { res.send(err); throw err; }
 
         for (let i = 0; i < result.length; i++) {
-            pricesArr.push({ name: result[i].name, price: result[i].price });
+            pricesArr.push({ name: result[i].name, price: result[i].price, id: result[i].food_id });
         }
         res.send(JSON.stringify(pricesArr));
     });

@@ -25,12 +25,11 @@ const Register = () => {
         })
             .then(response => response.text())
             .then(data => {
-                console.log(data);
                 if (data === "false") {
                     alert("User already exists");
                 } else {
                     alert("You registered successfully");
-                    navigate("/");
+                    navigate("/login");
                 }
             })
             .catch(err => console.log(err))

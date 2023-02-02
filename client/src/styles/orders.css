@@ -1,0 +1,118 @@
+form,
+body {
+  background-color: #bdbdbd;
+}
+
+.table {
+  background-color: rgb(212, 0, 0);
+  ;
+}
+
+.grid-container {
+  background-color: #bdbdbd;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-template-areas:
+    "header header header"
+    "item item item"
+    "item item item "
+    "item item item "
+    "alcohol alcohol alcohol"
+
+
+
+
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+img {
+  width: 45vh;
+  height: 40vh;
+  margin-bottom: 10px;
+  border: groove;
+  border-width: 4px;
+  border-color: rgb(212, 0, 0);
+}
+
+.chooseMeat {
+  grid-area: header;
+  text-align: center;
+  font-weight: bold;
+}
+
+.alcohol-container {
+  background-color: #bdbdbd;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  grid-area: alcohol;
+
+
+
+}
+
+.alcohol-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+h3.tubi {
+  margin: 0 auto;
+}
+
+
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 4vh;
+  height: 4vh;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background: rgb(0, 0, 0);
+  border: 1px solid rgb(255, 255, 255);
+
+}
+
+input[type="checkbox"]:checked::after {
+  content: "X";
+  font-size: 4vh;
+  color: rgb(255, 255, 255);
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="number"] {
+  width: 10vh;
+  height: 10v;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 0, 0);
+  cursor: pointer;
+ 
+}
+
+.total-price{
+  padding:10px
+}

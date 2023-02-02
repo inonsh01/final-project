@@ -3,26 +3,22 @@ export default function OrderTable(props) {
     let fullOrder = props.fullOrder;
 
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>amount</th>
-                        <th>price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {fullOrder.map((row, index) => (
-                        <tr key={index}>
-                            <td>{row.name}</td>
-                            <td>{row.amount} g/b</td>
-                            <td>{row.price}&#8362;</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <h3>Total Price: {props.totalPrice}&#8362;</h3>
+        <div className='table'>
+            <ul className="responsive-table">
+                <li className="table-header">
+                    <div className="col col-1">Name</div>
+                    <div className="col col-2">Amount</div>
+                    <div className="col col-3">Price</div>
+                </li>
+                {fullOrder.map(row => (
+                    <li key={row.id} className="table-row">
+                        <div className="col col-1">{row.name}</div>
+                        <div className="col col-2">{row.amount} g/b</div>
+                        <div className="col col-3">{row.price}&#8362;</div>
+                    </li>
+                ))}
+            </ul>
+            <h3 className='total-price'>Total Price: {props.totalPrice}&#8362;</h3>
         </div>
     )
 }

@@ -4,7 +4,6 @@ var con = require('../mysql/connection');
 const Joi = require('joi');
 
 router.get('/:id', function (req, res) {
-    console.log(req.params.id);
     const sql = `SELECT * FROM user WHERE user_id = '${req.params.id}';`
     con.query(sql, function (err, result) {
         if (err) throw err;
@@ -19,7 +18,6 @@ router.put('/:id', function (req, res) {
         email: Joi.string().email(),
         phone_number: Joi.string().length(10).pattern(/^[0-9]+$/)
     });
-
     const result = schema.validate(req.body);
     if (result.error) {
         res.status(400);

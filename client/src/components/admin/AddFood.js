@@ -1,23 +1,28 @@
 import React, { useState } from 'react'
 
 export default function AddFood(props) {
-    const [name, setName] = useState();
-    const [price, setPrice] = useState();
-    const [type, setType] = useState();
-    const [url, setUrl] = useState();
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [type, setType] = useState("");
+    const [url, setUrl] = useState("");
 
     async function addFood() {
         const obj = {
             name: name,
             price: price,
             type: type,
-            url: url
+            img: url
         }
-        await fetch("http://localhost:4000/admin/food", {
+        const res = await fetch("http://localhost:4000/admin/food", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(obj)
         })
+        if (res.status === 400) {
+            const data = await res.text();
+            alert(data);
+            return;
+        }
         props.getAllItems();
         props.setClickAdd(false)
     }

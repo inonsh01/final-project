@@ -13,7 +13,7 @@ function ifExist(req, res) {
     con.query(sql, function (err, result) {
         if (result[0]) {
             res.send(false);
-            return;
+            return true;
         }
     });
 }
@@ -22,7 +22,7 @@ function register(req, res, admin) {
     let type = admin ? 'admin' : 'user';
     var sql = `INSERT INTO user (user_name, type) VALUES ('${req.body.name}', '${type}')`;
     con.query(sql, function (err, result) {
-        if (err) {res.send(err); return;}
+        if (err) {res.send(err); throw err ;}
         sql = `INSERT INTO password (user_id, password) VALUES ((SELECT user_id FROM user WHERE user_name = '${req.body.name}'), '${req.body.password}')`
         con.query(sql, function (err, result) {
             if (err) res.send(err);
@@ -31,7 +31,9 @@ function register(req, res, admin) {
     });
 }
 router.post('/', function (req, res, next) {
-    ifExist(req, res);
+    if(ifExist(req, res)){
+        return;
+    }
     register(req, res);
 });
 module.exports = router;

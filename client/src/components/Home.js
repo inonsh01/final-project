@@ -15,14 +15,11 @@ export default function Home() {
     }
 
     let userInfo = JSON.parse(Cookies.get('user'));
-    console.log(userInfo);
-
-    //const user = JSON.parse(Cookies.get('user'));
-    //console.log('user: ', user);
 
     return (
         <div>
-            <h2> welcome back {userInfo.username}!</h2>
+            <h1>Hello {userInfo.username}, Welcome to Niso-Grill</h1>
+            <br></br>
             <button onClick={()=>navigate(`order`)}>Make a new order </button>
         </div>
     )

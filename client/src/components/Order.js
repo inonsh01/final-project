@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Cookies from 'js-cookie';
 import OrderTable from './OrderTable';
+import '../styles/orders.css';
+
 export default function Order() {
     const [food, setFood] = useState();
     const [alcohol, setAlcohol] = useState();
@@ -9,6 +11,8 @@ export default function Order() {
     const [fullOrder, setFullOrder] = useState([]);
     const userId = JSON.parse(Cookies.get('user')).userId;
     const [totalPrice, setTotalPrice] = useState();
+    const [isNotSend, setIsNotSend] = useState(true);
+
 
     useEffect(() => {
         fetch("http://localhost:4000/food")
@@ -66,6 +70,7 @@ export default function Order() {
         setTotalPrice(price);
         setFullOrder(fullArr);
         sendOrderToServer(fullArr, price);
+        setIsNotSend(false)
     }
 
     function sendOrderToServer(order, price) {
@@ -76,16 +81,13 @@ export default function Order() {
             },
             body: JSON.stringify({ fullOrder: order, userId: userId, totalPrice: price, totalPeople: people })
         })
-            .then((response) => response.json())
-            .then(data => {
-                console.log('data: ', data);
-            });
     }
 
-    function changeArr(name, type) {
+    function changeArr(name, type, id) {
         const obj = {
             name: name,
-            type: type
+            type: type, 
+            id: id
         }
         let arr = [...foodArr];
         for (let food of arr) {
@@ -104,42 +106,55 @@ export default function Order() {
         setFoodArr(arr);
     }
     return (
-        <div className='order'>
-            <form onSubmit={(e) => sendOrder(e)}>
-                <div>
-                    <label>How many people in the seating</label>
-                    <input onChange={(e) => setPeople(e.target.value)} type="number" min={5} max={20} required></input>
-                </div>
-                {food &&
+        <>
+            <div className='order'>
+                {isNotSend && <form onSubmit={(e) => sendOrder(e)}>
                     <div>
-                        <h3>choose types of meat</h3>
-                        {food.map(obj =>
-                            obj.type === 'food' &&
-                            <>
-                                <input onClick={() => changeArr(obj.name, obj.type)} type="checkbox" name={obj.name} />
-                                <label>{obj.name}</label>
-                            </>
-                        )}
-                        <h3>Do u want tubi dead today?</h3>
-                        <input onClick={() => setAlcohol(!alcohol)} type="checkbox" name="alcohol"></input>
-                        <label>Alcohol</label>
+                        <h1>How many people in the seating?</h1>
+
+                        <input onChange={(e) => setPeople(e.target.value)} type="number" min={5} max={20} required></input>
                         <br />
+                    </div>
+                    {food &&
+                        <div className="grid-container">
+
+                            <h3 className='chooseMeat'>choose types of meat</h3>
+                            {food.map(obj =>
+                                obj.type === 'food' &&
+                                <div key={obj.foodId}>
+                                    <div className="grid-item " >
+                                        <img alt="img-element" src={`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
+                                        <h3>{obj.name}</h3>
+                                        <input onClick={() => changeArr(obj.name, obj.type, obj.foodId)} type="checkbox" name={obj.name} />
+                                    </div>
+                                </div>
+                            )}
+
+
+                        </div>}
+                    <h2 className='tubi'>Do u want Tubi dead today?</h2>
+
+                    <h3>Alcohol</h3>
+                    <input onClick={() => setAlcohol(!alcohol)} type="checkbox" name="alcohol"></input>
+                    <div className="alcohol-container">
                         {alcohol &&
                             <>
                                 {food.map(obj =>
                                     obj.type === 'drink' &&
-                                    <>
-                                        <input onClick={() => changeArr(obj.name, obj.type)} type="checkbox" name={obj.name} />
-                                        <label>{obj.name}</label>
+                                    <div key={obj.foodId} className='alcohol-item'>
                                         <img alt="img-element" src={`http://localhost:4000/order/img?imgUrl=${obj.img}`} />
-                                    </>
+                                        <h3>{obj.name}</h3>
+                                        <input onClick={() => changeArr(obj.name, obj.type, obj.foodId)} type="checkbox" name={obj.name} />
+                                    </div>
                                 )}
                             </>}
-                    </div>}
-                <button type="submit">I want to seat!</button>
-            </form>
-            {fullOrder.length > 0 && <OrderTable fullOrder={fullOrder} totalPrice={totalPrice} />}
-        </div>
+                    </div>
+
+                    <button type="submit">I want to seat!</button>
+                </form>}
+                {fullOrder.length > 0 && <OrderTable fullOrder={fullOrder} totalPrice={totalPrice} />}
+            </div>
+        </>
     )
 }
 
@@ -175,7 +190,7 @@ function convertToArray(arr) {
             arrOfObjsFood.push({ name: obj.name, amount: 0, price: 0 });
         }
         else if (obj.type === 'drink') {
-            arrOfObjDrinks.push({ name: obj.name, amount: 0, price: 0 });
+            arrOfObjDrinks.push({ name: obj.name, amount: 0, price: 0});
         }
     }
     return [arrOfObjsFood, arrOfObjDrinks];

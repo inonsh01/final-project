@@ -1,35 +1,40 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Orbitron&family=Oswald:wght@500&family=Space+Mono&family=Staatliches&display=swap');
 form {
-    background-color: #797979;
+    background-color: #ffffff;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Raleway, sans-serif;
+    font-family: 'Oswald', sans-serif;
+
+    
     
 }
 
+h1,h2,h3{
+    text-decoration: underline;
+}
+
 body {
-    background: linear-gradient(90deg, #cbbda2, #14181c);
+   
+    font-family: 'Oswald', sans-serif;
     height: 100%;
-    background-image: url('background.jpg');
     text-align: center;
 
 }
-h1,h2,p{
-    background-color: #717171;
-    color: rgb(0, 0, 0);
-}
+
 
 .log-in-btn {
     margin-left: 10%;
+    color: rgb(255, 255, 255);
+    background-color: #6f6f6f4d;
 }
 
 .log-in-link {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 
 .container {
@@ -112,6 +117,7 @@ h1,h2,p{
     width: 320px;
     padding: 30px;
     padding-top: 156px;
+    background-color: transparent;
 }
 
 .login__field {

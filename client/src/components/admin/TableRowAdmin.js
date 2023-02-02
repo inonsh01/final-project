@@ -23,11 +23,17 @@ export default function TableRowAdmin(props) {
             },
             foodId: item.food_id
         }
-        await fetch("http://localhost:4000/admin/food", {
+        const response = await fetch("http://localhost:4000/admin/food", {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(obj)
         })
+        if (response.status === 400) {
+            const data = await response.text();
+            alert(data);
+            Cancel();
+            return;
+        }
         props.getAllItems();
         setClickName(false);
         setClickPrice(false);
@@ -77,7 +83,7 @@ export default function TableRowAdmin(props) {
                 <div className="col col-4">
                     {clickUrl ?
                         <input onChange={(e) => setUrl(e.target.value)} type='text' value={url}></input> :
-                        <button onClick={() => setClickUrl(true)} className='btn-as-txt'>{url}</button>}
+                        <button id="url-btn" onClick={() => setClickUrl(true)} className='btn-as-txt'>{url}</button>}
                 </div>
                 <button onClick={deleteFood} className='btn-as-txt' ><FaTrashAlt /></button>
                 {(clickName || clickPrice || clickType || clickUrl) &&

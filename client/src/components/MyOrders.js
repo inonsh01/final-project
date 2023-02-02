@@ -21,7 +21,7 @@ export default function MyOrders() {
     return (
         <div>
             {myOrders && myOrders.map((item) =>
-                <OrderInfo getOrders = {getOrders} userId={userId} item={item} />
+                <OrderInfo key = {Math.random()} getOrders = {getOrders} userId={userId} item={item} />
             )}
         </div>
     )

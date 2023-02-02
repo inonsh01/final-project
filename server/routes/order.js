@@ -3,7 +3,8 @@ var router = express.Router();
 var con = require('../mysql/connection');
 
 router.get('/img', function (req, res, next) {
-    res.sendFile(req.query.imgUrl)
+    const path = `/home/hilma/Desktop/Hilma's-Projects/projects/finalProject/server/pics/${req.query.imgUrl}`
+    res.sendFile(path)
 });
 
 router.get('/', function (req, res, next) {
@@ -47,7 +48,7 @@ module.exports = router;
 
 function sendOrderInfo(req, res) {
     const orderId = req.query.orderId;
-    var sql = `SELECT price, amount, food_name FROM order_info WHERE order_id = ${orderId}`;
+    var sql = `SELECT * FROM order_info WHERE order_id = ${orderId}`;
     con.query(sql, function (err, result) {
         res.send(JSON.stringify(result));
     });
